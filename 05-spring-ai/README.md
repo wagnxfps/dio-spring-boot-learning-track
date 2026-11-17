@@ -83,3 +83,64 @@ Run the application and tests:
 
 - Educational final project focused on AI plus architectural discipline.
 - External provider integration tests may require active credentials.
+
+
+# Minha evolução do projeto — Validação de transações
+
+# Objetivo da melhoria
+
+Implementei validações na API de orçamento para impedir o cadastro de transações com informações inválidas.
+
+# Validações implementadas
+
+- O valor da transação deve ser maior que zero.
+- A descrição da transação não pode ser vazia, nula ou conter apenas espaços.
+- Quando uma dessas regras é violada, a API retorna o status HTTP 400 (Bad Request).
+
+As validações foram adicionadas ao arquivo `PersistTransactionUseCase.java`, antes da persistência da transação no banco de dados.
+
+# Tecnologias utilizadas
+
+- Java
+- Spring Boot
+- Spring AI
+- Spring Data JPA
+- MySQL
+- Docker Compose
+- Gradle
+- Git e GitHub
+
+# Como executar e testar
+
+O projeto utiliza um banco de dados MySQL executado pelo Docker Compose.
+
+No Windows, com Docker Desktop em execução, abra um terminal na pasta `05-spring-ai` e execute:
+
+```powershell
+docker compose up -d
+.\gradlew.bat bootRun
+```
+
+Para testar o cadastro de uma transação válida, envie uma requisição POST para `/transactions` com o seguinte JSON:
+
+```json
+{
+  "description": "Compra no supermercado",
+  "category": "GROCERIES",
+  "amount": 150
+}
+```
+
+Para testar as validações, envie uma transação com `amount` igual a `-100` ou com `description` igual a `""`.
+
+Nos testes realizados, a API retornou HTTP 400 para ambos os casos inválidos.
+
+Também é possível consultar as transações da categoria GROCERIES com uma requisição GET para `/transactions/GROCERIES`.
+
+# O que aprendi
+
+Durante o desafio, pratiquei a configuração de uma aplicação Spring Boot, a integração com MySQL e Docker, a execução de requisições HTTP e a validação de dados antes da persistência.
+
+Também aprendi a utilizar Git e GitHub para registrar alterações, criar commits e publicar minha evolução do projeto.
+
+O projeto original apresenta recursos de Spring AI para transcrição de áudio, interpretação de comandos e geração de respostas. Minha contribuição foi fortalecer a validação das transações financeiras.
